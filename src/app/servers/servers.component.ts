@@ -7,34 +7,75 @@ import { Component } from '@angular/core';
   templateUrl: './servers.component.html',
   styleUrls: ['./servers.component.css']
 })
-
 export class ServersComponent {
-  allowNewServer: boolean = false;
-  serverCreationStatus: string = 'No server was created!';
-  serverName: string = '';
-  userName: string = '';
+  private _serverCreationStatus: string = 'No server was created!';
+  private _allowNewServer: boolean = false;
+  private _serverName: string = '';
+  private _userName: string = '';
+  private _servers: Array<String> = [];
+  private _logs: Array<String> = [];
 
 
   constructor() {
-    setTimeout(
-      () => {
-        this.allowNewServer = true;
-      }
-    , 2000);
+    setTimeout(() => {
+      this.allowNewServer = true;
+    }, 2000);
   }
 
-  onCreateServer() {
+  onCreateServer(): void {
     this.serverCreationStatus = `Server ${this.serverName} was created!`;
+    this.servers.push(this.serverName);
   }
 
-  setUserName(name:string) {
-    this.userName = name;
+  logActivity(): void {
+    this.logs.push(new Date() + " activity logged.")
   }
-  // onUpdateServerName(event: any) {
-  //   // this.serverName = event.target.value; // less desirable because it would only work when it's input
-  //   this.serverName = (<HTMLInputElement>event.target).value
-  // }
 
+  public get userName(): string {
+    return this._userName;
+  }
 
+  public set userName(value: string) {
+    this._userName = value;
+  }
 
+  public get serverName(): string {
+    return this._serverName;
+  }
+
+  public set serverName(value: string) {
+    this._serverName = value;
+  }
+
+  public get allowNewServer(): boolean {
+    return this._allowNewServer;
+  }
+
+  public set allowNewServer(value: boolean) {
+    this._allowNewServer = value;
+  }
+
+  public get serverCreationStatus(): string {
+    return this._serverCreationStatus;
+  }
+
+  public set serverCreationStatus(value: string) {
+    this._serverCreationStatus = value;
+  }
+
+  public get servers(): Array<String> {
+    return this._servers;
+  }
+
+  public set servers(value: Array<String>) {
+    this._servers = value;
+  }
+
+  public get logs(): Array<String> {
+    return this._logs;
+  }
+
+  public set logs(value: Array<String>) {
+    this._logs = value;
+  }
 }

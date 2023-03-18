@@ -12,13 +12,9 @@
             <button
                 type="text"
                 [disabled]="!userName"
-                (click)="setUserName('')"
+                (click)="userName=''"
                 >Log out</button>
-            <!-- <input
-                type="text"
-                class="form-control"
-                (input)="onUpdateServerName($event)"> -->
-            <br>
+            <br><br>
             <input
                 type="text"
                 class="form-control"
@@ -29,7 +25,21 @@
                 [disabled]="!allowNewServer"
                 (click)="onCreateServer()"
                 >Add server</button>
-            <p>{{ serverCreationStatus }}</p>
+            <br><br>
+            <p *ngIf="serverName">{{ serverCreationStatus }}</p>
+
+            <button
+                type="text"
+                (click)="logActivity()"
+                >Log Activity</button>
+            <br><br>
+            <p 
+                *ngFor="let log of logs; index as i"
+                [ngStyle]="{backgroundColor: i >= 5 ? 'blue' : 'transparent'}"
+                [ngClass]="{'white-text': i >= 5}"
+            > {{ log }} </p>
+
+            <app-server *ngFor="let server of servers"></app-server>
         </div>
     </div>
 </div>
